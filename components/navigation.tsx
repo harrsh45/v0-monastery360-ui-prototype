@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, Search, MapPin, Calendar, Archive } from "lucide-react"
+import ClientOnly from "./client-only"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,17 +21,26 @@ export function Navigation() {
   ]
 
   // Add scroll effect
-  useState(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
+  // Wrap scroll effect in ClientOnly to prevent "window is not defined" errors
+  const ScrollHandler = () => {
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 10)
+      }
+      
+      window.addEventListener('scroll', handleScroll)
+      return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
     
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  })
+    return null
+  }
 
   return (
-    <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'shadow-md bg-black/40' : 'bg-black/20'} border-b border-white/10`}>
+    <>
+      <ClientOnly>
+        <ScrollHandler />
+      </ClientOnly>
+      <nav className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'shadow-md bg-black/40' : 'bg-black/20'} border-b border-white/10`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
@@ -100,5 +110,6 @@ export function Navigation() {
         </div>
       </div>
     </nav>
+    </>
   )
 }
