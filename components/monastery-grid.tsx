@@ -105,11 +105,11 @@ export function MonasteryGrid() {
   return (
     <div className="space-y-6">
       {/* Results Header */}
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground">Showing {monasteries.length} monasteries</p>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+      <div className="flex items-center justify-between mb-6 bg-black/30 backdrop-blur-sm p-3 rounded-lg border border-white/10">
+        <p className="text-sm text-white/70">Showing <span className="text-primary font-medium">{monasteries.length}</span> monasteries</p>
+        <div className="flex items-center gap-2 text-sm text-white/70">
           Sort by:
-          <Button variant="ghost" size="sm" className="h-auto p-1 font-medium">
+          <Button variant="ghost" size="sm" className="h-auto p-1 font-medium text-primary hover:text-primary/80 hover:bg-black/30">
             Relevance
           </Button>
         </div>
@@ -118,13 +118,13 @@ export function MonasteryGrid() {
       {/* Monastery Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {monasteries.map((monastery) => (
-          <Card
+          <div
             key={monastery.id}
-            className="group overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
+            className="group overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 cursor-pointer"
             onMouseEnter={() => setHoveredCard(monastery.id)}
             onMouseLeave={() => setHoveredCard(null)}
           >
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden rounded-t-xl">
               <img
                 src={monastery.image || "/placeholder.svg"}
                 alt={monastery.name}
@@ -137,14 +137,14 @@ export function MonasteryGrid() {
                   hoveredCard === monastery.id ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <Button size="sm" className="bg-white/20 hover:bg-white/30 text-white border-white/30">
+                <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   <Play className="h-4 w-4 mr-1" />
                   Tour
                 </Button>
                 <Button
                   size="sm"
                   variant="outline"
-                  className="bg-white/20 hover:bg-white/30 text-white border-white/30"
+                  className="bg-black/50 hover:bg-black/70 text-white border-white/30"
                 >
                   <Eye className="h-4 w-4 mr-1" />
                   Details
@@ -153,47 +153,47 @@ export function MonasteryGrid() {
 
               {/* Badges */}
               <div className="absolute top-3 left-3 flex gap-2">
-                <Badge className="bg-primary/90 text-primary-foreground">{monastery.tradition}</Badge>
+                <Badge className="bg-primary/90 text-primary-foreground font-medium">{monastery.tradition}</Badge>
                 {monastery.features.includes("virtual-tour") && (
-                  <Badge variant="secondary" className="bg-white/90 text-foreground">
+                  <Badge variant="secondary" className="bg-accent/90 text-accent-foreground font-medium">
                     360° Tour
                   </Badge>
                 )}
               </div>
 
               {/* Rating */}
-              <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/60 text-white px-2 py-1 rounded text-xs">
-                <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+              <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/70 text-white px-2 py-1 rounded-full text-xs">
+                <Star className="h-3 w-3 fill-accent text-accent" />
                 {monastery.rating}
               </div>
             </div>
 
-            <CardContent className="p-4">
+            <div className="p-4">
               <div className="space-y-3">
                 <div>
-                  <h3 className="font-serif text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="font-serif text-lg font-semibold text-white group-hover:text-primary transition-colors">
                     {monastery.name}
                   </h3>
-                  <div className="flex items-center text-sm text-muted-foreground mt-1">
-                    <MapPin className="h-3 w-3 mr-1" />
+                  <div className="flex items-center text-sm text-white/70 mt-1">
+                    <MapPin className="h-3 w-3 mr-1 text-primary" />
                     {monastery.location} • {monastery.distance}
                   </div>
                 </div>
 
-                <p className="text-sm text-muted-foreground line-clamp-2">{monastery.description}</p>
+                <p className="text-sm text-white/70 line-clamp-2">{monastery.description}</p>
 
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <div className="flex items-center justify-between text-xs text-white/60">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center">
-                      <Clock className="h-3 w-3 mr-1" />
+                      <Clock className="h-3 w-3 mr-1 text-primary" />
                       Est. {monastery.established}
                     </div>
                     <div className="flex items-center">
-                      <Users className="h-3 w-3 mr-1" />
+                      <Users className="h-3 w-3 mr-1 text-primary" />
                       {monastery.visitors}
                     </div>
                   </div>
-                  <Badge variant="outline" className="text-xs">
+                  <Badge variant="outline" className="text-xs border-white/20 text-white/80">
                     {monastery.accessibility}
                   </Badge>
                 </div>
@@ -201,36 +201,36 @@ export function MonasteryGrid() {
                 {/* Feature Icons */}
                 <div className="flex items-center gap-2 pt-2">
                   {monastery.features.includes("virtual-tour") && (
-                    <div className="flex items-center text-xs text-muted-foreground">
-                      <Play className="h-3 w-3 mr-1" />
+                    <div className="flex items-center text-xs text-white/70 bg-black/30 px-2 py-1 rounded-full">
+                      <Play className="h-3 w-3 mr-1 text-primary" />
                       Virtual Tour
                     </div>
                   )}
                   {monastery.features.includes("events") && (
-                    <div className="flex items-center text-xs text-muted-foreground">
-                      <Calendar className="h-3 w-3 mr-1" />
+                    <div className="flex items-center text-xs text-white/70 bg-black/30 px-2 py-1 rounded-full">
+                      <Calendar className="h-3 w-3 mr-1 text-primary" />
                       Events
                     </div>
                   )}
                 </div>
 
-                <div className="flex gap-2 pt-2">
-                  <Button size="sm" className="flex-1">
+                <div className="flex gap-2 pt-4">
+                  <Button size="sm" className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground">
                     Explore
                   </Button>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
                     Save
                   </Button>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
 
       {/* Load More */}
       <div className="text-center pt-8">
-        <Button variant="outline" size="lg">
+        <Button variant="outline" size="lg" className="border-primary/50 text-primary hover:bg-primary/10 hover:border-primary">
           Load More Monasteries
         </Button>
       </div>

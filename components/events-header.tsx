@@ -21,34 +21,35 @@ export function EventsHeader() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-2">Events & Festivals</h1>
-        <p className="text-lg text-muted-foreground">
+        <h1 className="font-serif text-3xl md:text-4xl font-bold text-white mb-2">Events & Festivals</h1>
+        <p className="text-lg text-white/80">
           Join sacred ceremonies, cultural festivals, and spiritual retreats at Sikkim's monasteries
         </p>
+        <div className="h-1 w-20 bg-primary mt-4"></div>
       </div>
 
       {/* Search and Filters */}
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-4">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70 h-4 w-4" />
           <Input
             placeholder="Search events, monasteries, or festivals..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
+            className="pl-10 bg-black/30 border-white/10 text-white placeholder:text-white/50 focus:border-primary focus:ring-primary"
           />
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className="border-white/10 text-white hover:bg-white/10 hover:text-white">
             <Filter className="h-4 w-4 mr-2" />
             Filters
           </Button>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className="border-white/10 text-white hover:bg-white/10 hover:text-white">
             <Calendar className="h-4 w-4 mr-2" />
             Date Range
           </Button>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className="border-white/10 text-white hover:bg-white/10 hover:text-white">
             <MapPin className="h-4 w-4 mr-2" />
             Location
           </Button>
@@ -63,10 +64,10 @@ export function EventsHeader() {
             variant={selectedCategory === category.id ? "default" : "outline"}
             size="sm"
             onClick={() => setSelectedCategory(category.id)}
-            className="bg-transparent"
+            className={selectedCategory === category.id ? "bg-primary text-white hover:bg-primary/90" : "bg-transparent border-white/10 text-white hover:bg-white/10"}
           >
             {category.label}
-            <Badge variant="secondary" className="ml-2 text-xs">
+            <Badge variant="secondary" className="ml-2 text-xs bg-black/30 text-white">
               {category.count}
             </Badge>
           </Button>

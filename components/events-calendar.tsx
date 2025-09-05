@@ -66,32 +66,32 @@ export function EventsCalendar() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <span className="flex items-center gap-2">
-              <Calendar className="h-5 w-5" />
+      <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg overflow-hidden">
+        <div className="p-4 border-b border-white/10">
+          <div className="flex items-center justify-between">
+            <span className="flex items-center gap-2 text-white font-serif font-semibold">
+              <Calendar className="h-5 w-5 text-primary" />
               Events Calendar
             </span>
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => navigateMonth("prev")}>
+              <Button variant="ghost" size="sm" onClick={() => navigateMonth("prev")} className="text-white hover:bg-white/10">
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <span className="text-sm font-medium min-w-[120px] text-center">
+              <span className="text-sm font-medium min-w-[120px] text-center text-white">
                 {months[currentMonth]} {currentYear}
               </span>
-              <Button variant="ghost" size="sm" onClick={() => navigateMonth("next")}>
+              <Button variant="ghost" size="sm" onClick={() => navigateMonth("next")} className="text-white hover:bg-white/10">
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+          </div>
+        </div>
+        <div className="p-6">
           <div className="space-y-4">
             {/* Calendar Grid */}
             <div className="grid grid-cols-7 gap-1 text-center">
               {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-                <div key={day} className="p-2 text-xs font-medium text-muted-foreground">
+                <div key={day} className="p-2 text-xs font-medium text-white/70">
                   {day}
                 </div>
               ))}
@@ -114,8 +114,8 @@ export function EventsCalendar() {
                     onClick={() => setSelectedDate(isSelected ? null : day)}
                     className={`
                       p-2 text-sm rounded-lg transition-colors relative
-                      ${isSelected ? "bg-primary text-primary-foreground" : "hover:bg-muted"}
-                      ${isToday ? "ring-2 ring-primary ring-offset-2" : ""}
+                      ${isSelected ? "bg-primary text-white" : "text-white hover:bg-white/10"}
+                      ${isToday ? "ring-2 ring-primary ring-offset-1 ring-offset-black/40" : ""}
                     `}
                   >
                     {day}
@@ -138,66 +138,66 @@ export function EventsCalendar() {
             </div>
 
             {/* Legend */}
-            <div className="flex flex-wrap gap-2 text-xs">
+            <div className="flex flex-wrap gap-3 text-xs border-t border-white/10 pt-4">
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 rounded-full bg-accent"></div>
-                <span>Festival</span>
+                <span className="text-white/70">Festival</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                <span>Retreat</span>
+                <span className="text-white/70">Retreat</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 rounded-full bg-primary"></div>
-                <span>Ceremony</span>
+                <span className="text-white/70">Ceremony</span>
               </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Quick Stats */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">This Month</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
+      <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg overflow-hidden">
+        <div className="p-4 border-b border-white/10">
+          <h3 className="text-lg font-serif font-semibold text-white">This Month</h3>
+        </div>
+        <div className="p-6 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Total Events</span>
-            <Badge variant="secondary">12</Badge>
+            <span className="text-sm text-white/70">Total Events</span>
+            <Badge variant="secondary" className="bg-black/30 text-white border border-white/10">12</Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Festivals</span>
-            <Badge variant="secondary">4</Badge>
+            <span className="text-sm text-white/70">Festivals</span>
+            <Badge variant="secondary" className="bg-black/30 text-white border border-white/10">4</Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Retreats</span>
-            <Badge variant="secondary">3</Badge>
+            <span className="text-sm text-white/70">Retreats</span>
+            <Badge variant="secondary" className="bg-black/30 text-white border border-white/10">3</Badge>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Workshops</span>
-            <Badge variant="secondary">5</Badge>
+            <span className="text-sm text-white/70">Workshops</span>
+            <Badge variant="secondary" className="bg-black/30 text-white border border-white/10">5</Badge>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Quick Actions */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Quick Actions</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          <Button variant="outline" className="w-full justify-start bg-transparent">
+      <div className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg overflow-hidden">
+        <div className="p-4 border-b border-white/10">
+          <h3 className="text-lg font-serif font-semibold text-white">Quick Actions</h3>
+        </div>
+        <div className="p-6 space-y-2">
+          <Button variant="outline" className="w-full justify-start bg-transparent border-white/20 text-white hover:bg-white/10">
             View My Bookings
           </Button>
-          <Button variant="outline" className="w-full justify-start bg-transparent">
+          <Button variant="outline" className="w-full justify-start bg-transparent border-white/20 text-white hover:bg-white/10">
             Create Event Alert
           </Button>
-          <Button variant="outline" className="w-full justify-start bg-transparent">
+          <Button variant="outline" className="w-full justify-start bg-transparent border-white/20 text-white hover:bg-white/10">
             Download Calendar
           </Button>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }

@@ -66,86 +66,100 @@ export function EventsList() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="font-serif text-2xl font-semibold text-foreground">Upcoming Events</h2>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+      <div className="flex items-center justify-between bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+        <h2 className="font-serif text-2xl font-semibold text-white">Upcoming Events</h2>
+        <div className="flex items-center gap-2 text-sm text-white/70">
           Sort by:
-          <Button variant="ghost" size="sm" className="h-auto p-1 font-medium">
+          <Button variant="ghost" size="sm" className="h-auto p-1 font-medium text-white hover:bg-white/10">
             Date
           </Button>
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-4 relative">
+        {/* Vertical Timeline */}
+        <div className="absolute left-[20px] top-0 bottom-0 w-0.5 bg-primary/30 z-0"></div>
+        
         {events.map((event) => (
-          <Card
-            key={event.id}
-            className="cursor-pointer hover:shadow-md transition-all duration-200"
-            onClick={() => setSelectedEvent(selectedEvent === event.id ? null : event.id)}
-          >
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex-1 space-y-3">
+          <div key={event.id} className="relative">
+            {/* Timeline Date Marker */}
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
+              <div className="w-10 h-10 rounded-full bg-black/60 border-2 border-primary flex items-center justify-center text-white font-medium">
+                {new Date(event.date).getDate()}
+              </div>
+              <div className="text-xs text-white/70 mt-1">
+                {new Date(event.date).toLocaleString('default', { month: 'short' })}
+              </div>
+            </div>
+            
+            <div 
+              className="ml-16 cursor-pointer hover:shadow-md transition-all duration-200 bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg overflow-hidden"
+              onClick={() => setSelectedEvent(selectedEvent === event.id ? null : event.id)}
+            >
+              <div className="p-6">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1 space-y-3">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="font-serif text-lg font-semibold text-foreground">{event.name}</h3>
-                      <div className="flex items-center text-sm text-muted-foreground mt-1">
+                      <h3 className="font-serif text-lg font-semibold text-white">{event.name}</h3>
+                      <div className="flex items-center text-sm text-white/70 mt-1">
                         <MapPin className="h-3 w-3 mr-1" />
                         {event.monastery}, {event.location}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge variant="outline">{event.type}</Badge>
-                      <Badge className="bg-primary/10 text-primary">{event.price}</Badge>
+                      <Badge variant="outline" className="border-white/20 text-white bg-black/30">{event.type}</Badge>
+                      <Badge className="bg-primary/20 text-primary border border-primary/30">{event.price}</Badge>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                     <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-muted-foreground" />
-                      <span>{new Date(event.date).toLocaleDateString()}</span>
+                      <Calendar className="h-4 w-4 text-primary" />
+                      <span className="text-white/80">{new Date(event.date).toLocaleDateString()}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span>{event.time}</span>
+                      <Clock className="h-4 w-4 text-primary" />
+                      <span className="text-white/80">{event.time}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-muted-foreground" />
-                      <span>
+                      <Users className="h-4 w-4 text-primary" />
+                      <span className="text-white/80">
                         {event.booked}/{event.capacity} spots
                       </span>
                     </div>
                   </div>
+                </div>
 
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2">
                       {event.bookingTypes.map((type) => (
-                        <Badge key={type} variant="secondary" className="text-xs">
+                        <Badge key={type} variant="secondary" className="text-xs bg-black/30 text-white/90 border border-white/10">
                           {type}
                         </Badge>
                       ))}
                     </div>
                     <ChevronRight
-                      className={`h-4 w-4 text-muted-foreground transition-transform ${
+                      className={`h-4 w-4 text-white/70 transition-transform ${
                         selectedEvent === event.id ? "rotate-90" : ""
                       }`}
                     />
                   </div>
 
                   {selectedEvent === event.id && (
-                    <div className="pt-4 border-t space-y-4">
+                    <div className="pt-4 border-t border-white/10 space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         {event.bookingTypes.map((type) => (
-                          <Button key={type} variant="outline" size="sm" className="bg-transparent">
+                          <Button key={type} variant="outline" size="sm" className="bg-transparent border-white/20 text-white hover:bg-white/10">
                             Book {type}
                           </Button>
                         ))}
                       </div>
                       <div className="flex gap-2">
-                        <Button size="sm" className="flex-1">
+                        <Button size="sm" className="flex-1 bg-primary hover:bg-primary/90 text-white">
                           Book Now
                         </Button>
-                        <Button size="sm" variant="outline">
+                        <Button size="sm" variant="outline" className="border-white/20 text-white hover:bg-white/10">
                           More Details
                         </Button>
                       </div>
@@ -153,13 +167,14 @@ export function EventsList() {
                   )}
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
 
       <div className="text-center">
-        <Button variant="outline" size="lg">
+
+<Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10 bg-black/40 backdrop-blur-sm">
           Load More Events
         </Button>
       </div>
